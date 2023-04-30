@@ -6,7 +6,7 @@ function computeLastOccurrence(pattern: string) {
     return lastOccurrence
 }
 
-function BM(text: string, pattern: string) {
+export function BM(text: string, pattern: string) {
     const lastOccurrence = computeLastOccurrence(pattern)
     let i = pattern.length - 1
     let j = pattern.length - 1

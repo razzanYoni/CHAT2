@@ -38,6 +38,6 @@ function levenshetain_distance(s: string, t: string): number {
     return distMatrix[s.length][t.length];
 }
 
-function percentage_similarity(s: string, t: string): number {
+export function percentage_similarity(s: string, t: string): number {
     return 1 - (levenshetain_distance(s, t) / Math.max(s.length, t.length));
 }
