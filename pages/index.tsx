@@ -44,9 +44,9 @@ const Home: NextPage = () =>  {
                         </Flex>
 
                         <Box display="flex" flexDirection="column" alignItems="center" maxW={350}>
-                          <Text className={`infoText`}>"Explain Something to me"</Text>
-                          <Text className="infoText" align="center">"What is the difference between a dog and a cat"</Text>
-                          <Text className="infoText" align="center">"What is the color of the sun"</Text>
+                          <Text className={`infoText`}>{'"Explain Something to me"'}</Text>
+                          <Text className="infoText" align="center">{'"What is the difference between a dog and a cat"'}</Text>
+                          <Text className="infoText" align="center">{'"What is the color of the sun"'}</Text>
                         </Box>
                       </Box>
 
@@ -62,9 +62,9 @@ const Home: NextPage = () =>  {
                         </Flex>
                         
                         <Box display="flex" flexDirection="column" alignItems="center" maxW={350}>
-                          <Text className="infoText" align="center">"Explain Something to me"</Text>
-                          <Text className="infoText" align="center">"What is the difference between a dog and a cat"</Text>
-                          <Text className="infoText" align="center">"What is the color of the sun"</Text>
+                          <Text className="infoText" align="center">{'"Explain Something to me"'}</Text>
+                          <Text className="infoText" align="center">{'"What is the difference between a dog and a cat"'}</Text>
+                          <Text className="infoText" align="center">{'"What is the color of the sun"'}</Text>
                         </Box>
                       </Box>
 
@@ -80,9 +80,9 @@ const Home: NextPage = () =>  {
                         </Flex>
 
                         <Box display="flex" flexDirection="column" alignItems="center" maxW={350}>
-                          <Text className="infoText" align="center">May occasionally generate incorrect information</Text>
-                          <Text className="infoText" align="center">May occasionally produce harmful instructions or biased content</Text>
-                          <Text className="infoText" align="center">"What is the color of the sun"</Text>
+                          <Text className="infoText" align="center">{'"May occasionally generate incorrect information"'}</Text>
+                          <Text className="infoText" align="center">{'"May occasionally produce harmful instructions or biased content"'}</Text>
+                          <Text className="infoText" align="center">{'"What is the color of the sun"'}</Text>
                         </Box>
                       </Box>
                     </HStack>

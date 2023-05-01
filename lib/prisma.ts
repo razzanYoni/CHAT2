@@ -1,5 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 
+let globalThis: any = global;
+
 let prisma: PrismaClient;
 
 console.log(process.env.NODE_ENV);

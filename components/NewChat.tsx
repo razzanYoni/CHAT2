@@ -1,6 +1,7 @@
-import { HStack, Text } from "@chakra-ui/react";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
+
+import { HStack, Text } from "@chakra-ui/react";
 
 // TODO : rapihin styling
 

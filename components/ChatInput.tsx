@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Input } from '@chakra-ui/react';
+import { Input } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
 // TODO : Implement
