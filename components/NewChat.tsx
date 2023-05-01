@@ -1,4 +1,4 @@
-import { Container, HStack, Text } from "@chakra-ui/react";
+import { HStack, Text } from "@chakra-ui/react";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 
@@ -42,18 +42,19 @@ function NewChat() {
             borderColor={"gray.700"}
             border={"1px"}
             alignItems="center"
-            justifySelf="center"
+            justifySelf="left"
             rounded={"lg"}
-            px={5}
+            px={70}
             py={3}
             fontSize={"sm"}
             display={"flex"}
             justifyContent={"center"}
             spacing={2}
-            _hover={{ bg: "gray.700", opacity: 0.7}}
+            _hover={{ bg: "gray.500", opacity: 0.7}}
             cursor={"pointer"}
-            color={"gray.300"}
+            color={"gray.200"}
             transition="all 200ms ease-out"
+            w={300}
         >
             <PlusIcon height={"20"} width={"20"} />
             <Text>New Chat</Text>

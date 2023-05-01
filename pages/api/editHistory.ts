@@ -11,16 +11,17 @@ export default async function handler(
     res: NextApiResponse<Data>
 ) {
     try {
-        const { id_history, judul } = req.body;
-
-        await prisma.history.update({
-            where: {
-                id_history: Number(id_history),
-            },
-            data: {
-                judul: judul,
-            },
-        });
+        const { id_history, judul } : any = req.query;
+        if (judul) {
+            await prisma.history.update({
+                where: {
+                    id_history: Number(id_history),
+                },
+                data: {
+                    judul: judul,
+                },
+            });
+        }
 
         res.status(200).json({ success: true });
     }
