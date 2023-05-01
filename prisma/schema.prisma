@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model History {
+  id_history Int    @id @default(autoincrement()) @db.UnsignedInt
+  judul      String
+}
+
+model Q_A {
+  id_history Int      @default(autoincrement()) @db.UnsignedInt
+  pertanyaan String   @db.Text
+  jawaban    String   @db.Text
+  waktu      DateTime @default(now())
+
+  @@unique([id_history, waktu])
+}
+
+model Reference {
+  pertanyaan   String @db.Text
+  jawaban      String @db.Text
+  id_reference Int    @id @db.UnsignedInt
+}
