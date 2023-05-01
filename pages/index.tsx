@@ -60,7 +60,7 @@ const Home: NextPage = () =>  {
                           <Icon as={BoltIcon} h={8} w={8} />
                           <Text fontSize="xl">Capabilities</Text>
                         </Flex>
-
+                        
                         <Box display="flex" flexDirection="column" alignItems="center" maxW={350}>
                           <Text className="infoText" align="center">"Explain Something to me"</Text>
                           <Text className="infoText" align="center">"What is the difference between a dog and a cat"</Text>

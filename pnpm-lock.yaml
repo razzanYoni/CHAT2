@@ -52,7 +52,7 @@ dependencies:
 
 devDependencies:
   '@types/node':
-    specifier: 18.7.16
+    specifier: ^18.7.16
     version: 18.7.16
   '@types/react':
     specifier: 18.0.18
