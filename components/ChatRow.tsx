@@ -37,20 +37,17 @@ function ChatRow( { id_history, judul }: Props) {
         router.reload();
     }
 
-    const changeJudul = async () => {
+    const editHistory = async () => {
         const newJudul = prompt("Masukkan judul baru");
         if (newJudul) {
-            await fetch(`/api/editHistory?id_history=${id_history}&judul=${newJudul}`, {
-                method: "PUT"
-            });
+            await fetch(`/api/editHistory?id_history=${id_history}&judul=${newJudul}`, {method: "PUT"});
             router.reload();
         }
-        console.log(newJudul, id_history);
     }
 
 
     return (
-        <Card bg={"transparent"} bordercolor={"transparent"}>
+        <Card bg={"transparent"} borderColor={"transparent"}>
             <HStack>
                 <Link href={`/history/${id_history}`} className={`chatRow justify-center`} key={id_history}>
                     <HStack _hover={ { bg: "gray.500", opacity: 0.7 } } cursor={"pointer"} color="gray.200" transition="all 200ms ease-out" borderColor={"gray.100"} border={"1px"} alignItems="center" justifySelf="center" rounded={"lg"} py={"3"} fontSize={"sm"} display={"flex"} justifyContent={"center"} spacing={2} minW="245" maxW="200">
@@ -59,7 +56,7 @@ function ChatRow( { id_history, judul }: Props) {
                     </HStack>
                 </Link>
                 <TrashIcon onClick={deleteHistory} height={"20"} width={"20"} color={isHovered1 ? "red" : "white"} onMouseEnter={handleMouseEnter1} onMouseLeave={handleMouseLeave1} cursor={"pointer"} />
-                <PencilIcon onClick={changeJudul} height={"20"} width={"20"} color={isHovered2 ? "lightblue" : "white"} onMouseEnter={handleMouseEnter2} onMouseLeave={handleMouseLeave2} cursor={"pointer"} />
+                <PencilIcon onClick={editHistory} height={"20"} width={"20"} color={isHovered2 ? "lightblue" : "white"} onMouseEnter={handleMouseEnter2} onMouseLeave={handleMouseLeave2} cursor={"pointer"} />
             </HStack>
         </Card>
     );

@@ -1,8 +1,5 @@
 import { VStack, ChakraProvider, Stack } from "@chakra-ui/react";
-import { Input } from "@chakra-ui/react";
 import type { NextPage } from "next";
-import Link from "next/link";
-import { useState, useEffect } from "react";
 import SideBar from "@/SideBar";
 import { useRouter } from "next/router";
 import Chat from "@/Chat";
@@ -14,30 +11,6 @@ import theme from "theme";
 const Home: NextPage = () => {
 	const router = useRouter();
 	const { id_history  } = router.query;
-
-	const [qAs, setQAs] = useState([]);
-
-	const [history, setHistory] = useState(null);
-
-	useEffect(() => {
-		if (id_history) {
-			fetch(`/api/getHistory?id_history=${id_history}`)
-				.then((res) => res.json())
-				.then(({ data }) => {
-					setHistory(data);
-				});
-		}
-	}, [id_history]);
-
-	useEffect(() => {
-		if (id_history) {
-			fetch(`/api/getQAs?id_history=${id_history}`)
-				.then((res) => res.json())
-				.then(({ data }) => {
-					setQAs(data);
-				});
-		}
-	}, [id_history]);
 
 	return (
 		<ChakraProvider theme={theme}>

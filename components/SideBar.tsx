@@ -1,14 +1,12 @@
 import NewChat from "./NewChat";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { Flex, Box, Text, Image, Container, VStack, HStack } from "@chakra-ui/react";
+import { Flex, Box, Text, Image, VStack } from "@chakra-ui/react";
 import ChatRow from "./ChatRow";
 
 // TODO : edit, remove judul
 // TODO : rapihin tampilan
 
 function SideBar() {
-    const router = useRouter();
     const [histories, setHistories] = useState([]);
 
     useEffect(() => {
@@ -74,7 +72,7 @@ function SideBar() {
         </Box>
         
         <Image 
-            src="mandalorian.jfif"
+            src="/mandalorian.jfif"
             boxSize={"12"}
             borderRadius={"full"}
             cursor={"pointer"}
