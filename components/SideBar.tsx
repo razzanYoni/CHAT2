@@ -18,13 +18,14 @@ function SideBar() {
     }, []);
 
     return (
-    <Flex
-        p={2}
+    <Flex 
+        bg="gray.700"
         flexDir={"column"}
-        h="100vh">
+        h="100vh" alignItems="center">
         <Box
-            flex={"1"}>
-            <VStack>
+            flex={"1"}
+            alignItems="center">
+            <VStack paddingLeft={5} paddingTop={5} paddingRight={5}>
                 <NewChat />
                 {/* <div> */}
                     {/* ModelSelection */}
@@ -52,6 +53,7 @@ function SideBar() {
                         //         {history.judul}
                         // </Container>
                         <ChatRow
+                            key={history.id_history}
                             id_history={history.id_history}
                             judul={history.judul}
                         />
@@ -62,6 +64,7 @@ function SideBar() {
                     alignItems="center"
                     justifyContent="center"
                     className="noHistory"
+                    color="gray.200"
                   >
                     <Text>No Histories</Text>
                   </Flex>
@@ -69,17 +72,17 @@ function SideBar() {
 
             </VStack>
         </Box>
-
+        
         <Image 
-        src="mandalorian.jfif"
-        boxSize={"12"}
-        borderRadius={"full"}
-        cursor={"pointer"}
-        mx={"auto"}
-        mb={"2"}
-        _hover={{ opacity: 0.5 }}
-        alt="Your Pic"
-/>
+            src="mandalorian.jfif"
+            boxSize={"12"}
+            borderRadius={"full"}
+            cursor={"pointer"}
+            mx={"auto"}
+            mb={"2"}
+            _hover={{ opacity: 0.5 }}
+            alt="Your Pic"
+        />
     </Flex>
 );}
 
