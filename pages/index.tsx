@@ -41,7 +41,7 @@ const Home: NextPage = () =>  {
                         </Flex>
 
                         <Box display="flex" flexDirection="column" alignItems="center" maxW={350}>
-                          <Text className={`infoText`}>{'"Explain Something to me"'}</Text>
+                          <Text className={`infoText`} align="center">{'"Explain Something to me"'}</Text>
                           <Text className="infoText" align="center">{'"What is the difference between a dog and a cat"'}</Text>
                           <Text className="infoText" align="center">{'"What is the color of the sun"'}</Text>
                         </Box>
