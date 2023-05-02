@@ -1,4 +1,4 @@
-import { KMP } from '../src/KMP';
+import { KMP } from '../src/processing/KMP';
 
 describe('KMP', () => {
     it('should return the correct index of the first occurrence of pattern in text', () => {
