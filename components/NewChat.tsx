@@ -9,7 +9,7 @@ function NewChat() {
     const router = useRouter();
     const createNewHistory = () => {
         const newHistory = {
-            judul: "New Chat"
+            judul: "Untitled"
         };
 
         fetch("/api/createHistory", {
@@ -31,6 +31,7 @@ function NewChat() {
                 } else {
                     const newHistoryId = data[data.length - 1].id_history ? data[data.length - 1].id_history : 0;
                     router.push(`/history/${newHistoryId}`);
+                    router.reload();
                 }
             });
     };

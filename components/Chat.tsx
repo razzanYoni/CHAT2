@@ -38,7 +38,7 @@ function Chat( { id_history }: Props) {
                             <Flex flexDirection={"row"} alignContent={"right"}>
                                 <Spacer/>
                                 <Center>
-                                    <Text border="2px solid" borderRadius="5px" borderColor={"gray.200"} alignSelf={"right"} p={2} mr={5}>{QA.pertanyaan}</Text>
+                                    <Text maxW={"52vw"} border="2px solid" borderRadius="5px" borderColor={"gray.200"} alignSelf={"right"} p={2} mr={5}>{QA.pertanyaan}</Text>
                                     <Image 
                                         src="/mandalorian.jfif"
                                         boxSize={"10"}
@@ -57,7 +57,7 @@ function Chat( { id_history }: Props) {
                                         borderRadius={"full"}
                                         alt="Your Pic"
                                     />
-                                    <Text border="2px solid" borderRadius="5px" borderColor={"gray.200"} align={"left"} p={2} ml={5} my={5}>{QA.jawaban}</Text>
+                                    <Text maxW={"52vw"} border="2px solid" borderRadius="5px" borderColor={"gray.200"} align={"left"} p={2} ml={5} my={5}>{QA.jawaban}</Text>
                                 </Center>
                             </Flex>
                         </Box>

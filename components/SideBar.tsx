@@ -23,39 +23,28 @@ function SideBar() {
         <Box
             flex={"1"}
             alignItems="center">
-            <VStack paddingLeft={5} paddingTop={5} paddingRight={5}>
+            <VStack paddingLeft={5} paddingTop={5} paddingRight={5} spacing={2}>
                 <NewChat />
-                {/* <div> */}
-                    {/* ModelSelection */}
-                {/* </div> */}
-
-                {
-                    histories &&
-                    histories.map((history: any) => (
-                        // <Container
-                        //     onClick={() => router.push(`/history/${history.id_history}`)}
-                        //     display={"flex"}
-                        //     key={history.id_history}
-                        //     maxW={"3xl"}
-                        //     h={"50px"}
-                        //     w={"50px"}
-                        //     flexDir={"row"}
-                        //     alignItems={"center"}
-                        //     justifyContent={"space-between"}
-                        //     // textColor={"white"}
-                        //     border={"1px"}
-                        //     borderColor={"gray.700"}
-                        //     fontSize={"sm"}
-                        //     _hover={{ bg: "gray.700", opacity: 0.7, cursor: "pointer"}}
-                        // >
-                        //         {history.judul}
-                        // </Container>
-                        <ChatRow
-                            key={history.id_history}
-                            id_history={history.id_history}
-                            judul={history.judul}
-                        />
-                    ))}
+                <Box maxH={"80vh"} overflowY="scroll" sx={{
+							'&::-webkit-scrollbar': {
+							width: '10px',
+							backgroundColor: `gray.800`,
+							},
+							'&::-webkit-scrollbar-thumb': {
+							borderRadius: '20px',
+							backgroundColor: `gray.600`,
+							},
+						}}>
+                    {
+                        histories &&
+                        histories.map((history: any) => (
+                            <ChatRow
+                                key={history.id_history}
+                                id_history={history.id_history}
+                                judul={history.judul}
+                            />
+                        ))}
+                </Box>
                 
                 {!histories.length && (
                     <Flex
