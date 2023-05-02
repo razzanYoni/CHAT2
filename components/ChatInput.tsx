@@ -1,6 +1,7 @@
 import React from 'react'
-import { Input } from '@chakra-ui/react';
+import { Input, HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
 
 // TODO : Implement
 type Props = {
@@ -38,6 +39,18 @@ function ChatInput( { id_history }: Props) {
         router.reload();
     };
 
+    const compute = async () => {
+        references.forEach((reference:any) => {
+            if (inputValue.toLowerCase().includes(reference.pertanyaan.toLowerCase())) {
+                createNewQA(inputValue, reference.jawaban);
+                setInputValue("");
+                return;
+            }
+        });
+        createNewQA(inputValue, "Maaf, saya tidak mengerti pertanyaan Anda");
+        setInputValue("");
+    }
+
     const handleKeyDown = (event:any) => {
         console.log(event);
         if (event.key === "Enter") {
@@ -45,26 +58,21 @@ function ChatInput( { id_history }: Props) {
           console.log("Input value:", inputValue);
         //   TODO : Taro algoritma di sini
         // !!! : Algoritma di sini
-            references.forEach((reference:any) => {
-                if (inputValue.toLowerCase().includes(reference.pertanyaan.toLowerCase())) {
-                    createNewQA(inputValue, reference.jawaban);
-                    setInputValue("");
-                    return;
-                }
-            });
-            createNewQA(inputValue, "Maaf, saya tidak mengerti pertanyaan Anda");
-            setInputValue("");
+            compute();
         }
       };
     
-      const handleChange = (event:any) => {
-        setInputValue(event.target.value);
-      };
+    const handleChange = (event:any) => {
+    setInputValue(event.target.value);
+    };
     
 
     return (
-        <Input onChange={handleChange} onKeyDown={handleKeyDown}>
-        </Input>
+        <HStack>
+            <Input placeholder='Ask your questions here...' onChange={handleChange} onKeyDown={handleKeyDown}></Input>							
+            <PaperAirplaneIcon onClick={compute} cursor={"pointer"} height={"40"} width={"40"}/>
+        </HStack>
+
     )
 }
 

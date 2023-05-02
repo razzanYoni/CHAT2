@@ -26,7 +26,7 @@ const Home: NextPage = () =>  {
             <Stack direction={{ base: "column", md: "row" }} spacing={0} >
                 <SideBar/>
                 <Box height={{base:"100%", md:"100vh"}} width={{base:"100%", md:"100%" }} justify-content={"space-evenly"} bg="gray.800" color="gray.200" alignContent={"space-evenly"} alignItems={"space-evenly"} alignSelf={"space-evenly"} justifyContent={"space-evenly"}>
-                  <Heading as="h1" fontSize="5xl" fontWeight="bold" textAlign={"center"}>
+                  <Heading as="h1" fontSize="5xl" fontWeight="bold" textAlign={"center"} mt={"30vh"}>
                     ChatGPT
                   </Heading>
 

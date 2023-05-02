@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Container, VStack } from "@chakra-ui/react"
+import { useEffect, useState, useRef } from "react";
+import { Container, VStack, Text, Flex, Box, Image, Center, Spacer } from "@chakra-ui/react"
 
 type Props = {
     id_history: number;
@@ -19,17 +19,52 @@ function Chat( { id_history }: Props) {
 		}
 	}, [id_history]);
 
+    const bottomRef = useRef<null | HTMLDivElement>(null)
+	useEffect(() => {
+		if (bottomRef.current) {
+			bottomRef.current?.scrollIntoView({
+				behavior: 'smooth'
+			})
+		}
+	})
+
     return (
-        <Container>
+        <Container alignItems={"center"} marginX={20}>
             {
                 QAs &&
                 QAs.map((QA: any) => (
-                    <VStack key={(QA.id_history, QA.waktu)}>
-                        <p>{QA.pertanyaan}</p>
-                        <p>{QA.jawaban}</p>
+                    <VStack key={(QA.id_history, QA.waktu)} w="60vw">
+                        <Box alignItems={"right"} w="full" my={5}>
+                            <Flex flexDirection={"row"} alignContent={"right"}>
+                                <Spacer/>
+                                <Center>
+                                    <Text border="2px solid" borderRadius="5px" borderColor={"gray.200"} alignSelf={"right"} p={2} mr={5}>{QA.pertanyaan}</Text>
+                                    <Image 
+                                        src="/mandalorian.jfif"
+                                        boxSize={"10"}
+                                        borderRadius={"full"}
+                                        alt="Your Pic"
+                                    />
+                                </Center>
+                            </Flex>
+                        </Box>
+                        <Box alignItems={"left"} w="full">
+                            <Flex>
+                                <Center>
+                                    <Image 
+                                        src="/gethoGPT.png"
+                                        boxSize={"10"}
+                                        borderRadius={"full"}
+                                        alt="Your Pic"
+                                    />
+                                    <Text border="2px solid" borderRadius="5px" borderColor={"gray.200"} align={"left"} p={2} ml={5} my={5}>{QA.jawaban}</Text>
+                                </Center>
+                            </Flex>
+                        </Box>
                     </VStack>
                 ))
             }
+            <Container ref={bottomRef} />
         </Container>
     )
 }
