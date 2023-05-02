@@ -3,7 +3,6 @@ import { Input, HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
 
-// TODO : Implement
 type Props = {
     id_history: number;
 };

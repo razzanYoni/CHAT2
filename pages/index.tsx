@@ -13,11 +13,8 @@ import { BoltIcon, ExclamationTriangleIcon, SunIcon } from "@heroicons/react/24/
 
 import type { NextPage } from "next";
 
-// import theme from "theme";
 import theme from "theme";
 import SideBar from "@/SideBar";
-
-// TODO : Styling
 
 const Home: NextPage = () =>  {
 
@@ -27,7 +24,7 @@ const Home: NextPage = () =>  {
                 <SideBar/>
                 <Box height={{base:"100%", md:"100vh"}} width={{base:"100%", md:"100%" }} justify-content={"space-evenly"} bg="gray.800" color="gray.200" alignContent={"space-evenly"} alignItems={"space-evenly"} alignSelf={"space-evenly"} justifyContent={"space-evenly"}>
                   <Heading as="h1" fontSize="5xl" fontWeight="bold" textAlign={"center"} mt={"30vh"}>
-                    ChatGPT
+                    CHAT<sup>2</sup>
                   </Heading>
 
                   <Flex flexDirection="row" justifyContent="center" alignItems="center" padding={40} paddingTop={10}>

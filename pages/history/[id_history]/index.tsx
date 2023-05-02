@@ -1,12 +1,10 @@
-import { VStack, ChakraProvider, Stack, Box, Flex, HStack, Container } from "@chakra-ui/react";
+import { VStack, ChakraProvider, Stack, Box } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import SideBar from "@/SideBar";
 import { useRouter } from "next/router";
 import Chat from "@/Chat";
 import ChatInput from "@/ChatInput";
 import theme from "theme";
-import { useEffect, useRef } from "react";
-// TODO : buat form untuk masukin pertanyaan
 
 const Home: NextPage = () => {
 	const router = useRouter();
