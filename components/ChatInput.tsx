@@ -4,7 +4,10 @@ import { useRouter } from 'next/router';
 import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
 
 function RadioCard(props: any) {
-    const { getInputProps, getRadioProps } = useRadio(props)
+    const { state, getInputProps, getRadioProps, htmlProps, getLabelProps } = useRadio(props)
+    console.log(state);
+    console.log(htmlProps);
+    console.log(getLabelProps());
   
     const input = getInputProps()
     const checkbox = getRadioProps()
@@ -95,7 +98,7 @@ function ChatInput( { id_history }: Props) {
             createNewQA(inputValue, "Maaf, saya tidak mengerti pertanyaan Anda");
             setInputValue("");
         }
-        router.reload();
+        // router.reload();
     }
 
     const handleKeyDown = (event:any) => {
