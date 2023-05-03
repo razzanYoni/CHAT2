@@ -40,7 +40,6 @@ type Props = {
 };
 
 function ChatInput( { id_history }: Props) {
-    // const MyContext = React.createContext(defaultValue);
     const [inputValue, setInputValue] = React.useState("");
     const [selectedAlgorithm, setSelectedAlgorithm] = React.useState("KMP"); 
     const router = useRouter();
@@ -77,7 +76,7 @@ function ChatInput( { id_history }: Props) {
             body: JSON.stringify(newQA)
         })
             .then((res) => res.json())
-            .then(({ data }) => {  });
+            .then(({ data }) => { console.log(data); });
 
     };
 
@@ -100,7 +99,6 @@ function ChatInput( { id_history }: Props) {
     }
 
     const handleKeyDown = (event:any) => {
-        console.log(event);
         if (event.key === "Enter") {
           // Process input here
           console.log("Input value:", inputValue);
