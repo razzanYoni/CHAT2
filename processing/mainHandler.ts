@@ -5,11 +5,11 @@ import { dateQuestionHandler } from './dateHandler'
 import { Dict } from '@chakra-ui/utils'
 import { similarityScore } from './levenshtein'
 
-export function mainQuestionHandler(pattern: string, isKMP: boolean): string {
+export async function mainQuestionHandler(pattern: string, isKMP: boolean): string {
 
   // Handle date question
   let [is_match, answer] = dateQuestionHandler(pattern)
-
+  
   if (is_match) {
     return answer
   } else if (!is_match && answer !== '0') {
@@ -28,7 +28,9 @@ export function mainQuestionHandler(pattern: string, isKMP: boolean): string {
     matchAlg = KMP
   }
 
-  let questionAnwerDict = getAllQuestionAnswer()
+  let questionAnwerDict : Dict<string>[] = []
+  await fetch("/api/getReferences").then((res:any) => res.json()).then(({ data } : { data : any }) => { questionAnwerDict = data });
+
   for (let i = 0; i < questionAnwerDict.length; i++) {
     let question = Object.keys(questionAnwerDict[i])[0]
     if (question.length != pattern.length) {
@@ -60,13 +62,3 @@ export function mainQuestionHandler(pattern: string, isKMP: boolean): string {
   }
 
 }
-
-
-function getAllQuestionAnswer(): Dict<string>[] {
-  // Code to get all question answer from database
-
-  return [{ 'What is the answer to life, the universe and everything?': '42' }]
-}
-
-let res = mainQuestionHandler('1+2', true)
-console.log(res)

@@ -2,6 +2,7 @@ import React from 'react'
 import { Input, HStack, Box, Stack, useRadio, useRadioGroup } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
+import { mainQuestionHandler } from 'processing/mainHandler';
 
 function RadioCard(props: any) {
     const { getInputProps, getCheckboxProps } = useRadio(props)
@@ -43,7 +44,6 @@ function ChatInput( { id_history }: Props) {
     const [inputValue, setInputValue] = React.useState("");
     const [selectedAlgorithm, setSelectedAlgorithm] = React.useState("KMP"); 
     const router = useRouter();
-    const [references, setReferences] = React.useState([]);
 
     const options = ['KMP', 'BM']
 
@@ -54,12 +54,6 @@ function ChatInput( { id_history }: Props) {
     })
 
   const group = getRootProps()
-
-    React.useEffect(() => {
-        fetch("/api/getReferences")
-            .then((res) => res.json())
-            .then(({ data }) => setReferences(data));
-    }, []);
 
     const createNewQA = (pertanyaan:any, jawaban:any) => {
         const newQA = {
@@ -81,29 +75,13 @@ function ChatInput( { id_history }: Props) {
     };
 
     const compute = async () => {
-        let found = false;
-        console.log(selectedAlgorithm);
-        references.forEach((reference:any) => {
-            if (inputValue.toLowerCase().includes(reference.pertanyaan.toLowerCase())) {
-                createNewQA(inputValue, reference.jawaban);
-                setInputValue("");
-                found = true;
-                return;
-            }
-        });
-        if (!found) {
-            createNewQA(inputValue, "Maaf, saya tidak mengerti pertanyaan Anda");
-            setInputValue("");
-        }
+        createNewQA(inputValue, await mainQuestionHandler(inputValue, selectedAlgorithm == 'KMP'))
         router.reload();
     }
 
     const handleKeyDown = (event:any) => {
         if (event.key === "Enter") {
-          // Process input here
           console.log("Input value:", inputValue);
-        //   TODO : Taro algoritma di sini
-        // !!! : Algoritma di sini
             compute();
         }
       };
