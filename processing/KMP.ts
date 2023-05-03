@@ -58,9 +58,3 @@ export function KMP(text: string, pattern: string) {
   }
   return -1;
 }
-
-function main() {
-  const text = "ababababca";
-  const pattern = "abababca";
-  console.log(KMP(text, pattern));
-}
