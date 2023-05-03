@@ -4,10 +4,11 @@ import { useRouter } from 'next/router';
 import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
 
 function RadioCard(props: any) {
-    const { state, getInputProps, getRadioProps, htmlProps, getLabelProps } = useRadio(props)
+    const { state, getInputProps, getRadioProps, htmlProps} = useRadio(props)
     console.log(state);
+    console.log(getInputProps());
+    console.log(getRadioProps());
     console.log(htmlProps);
-    console.log(getLabelProps());
   
     const input = getInputProps()
     const checkbox = getRadioProps()
