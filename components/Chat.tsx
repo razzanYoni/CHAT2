@@ -5,8 +5,6 @@ type Props = {
     id_history: number;
 };
 
-// TODO : Implement
-
 function Chat( { id_history }: Props) {
     const [QAs, setQAs] = useState([]);
     useEffect(() => {

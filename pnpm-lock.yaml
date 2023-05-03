@@ -7,6 +7,9 @@ dependencies:
   '@chakra-ui/react':
     specifier: ^2.4.4
     version: 2.4.4(@emotion/react@11.10.5)(@emotion/styled@11.10.5)(@types/react@18.0.18)(framer-motion@7.10.2)(react-dom@18.2.0)(react@18.2.0)
+  '@chakra-ui/utils':
+    specifier: ^2.0.15
+    version: 2.0.15
   '@emotion/react':
     specifier: ^11.10.5
     version: 11.10.5(@babel/core@7.20.5)(@types/react@18.0.18)(react@18.2.0)
@@ -2284,6 +2287,15 @@ packages:
       lodash.mergewith: 4.6.2
     dev: false
 
+  /@chakra-ui/utils@2.0.15:
+    resolution: {integrity: sha512-El4+jL0WSaYYs+rJbuYFDbjmfCcfGDmRY95GO4xwzit6YAPZBLcR65rOEwLps+XWluZTy1xdMrusg/hW0c1aAA==}
+    dependencies:
+      '@types/lodash.mergewith': 4.6.7
+      css-box-model: 1.2.1
+      framesync: 6.1.2
+      lodash.mergewith: 4.6.2
+    dev: false
+
   /@chakra-ui/visually-hidden@2.0.13(@chakra-ui/system@2.3.5)(react@18.2.0):
     resolution: {integrity: sha512-sDEeeEjLfID333EC46NdCbhK2HyMXlpl5HzcJjuwWIpyVz4E1gKQ9hlwpq6grijvmzeSywQ5D3tTwUrvZck4KQ==}
     peerDependencies:
@@ -2868,6 +2880,12 @@ packages:
 
   /@types/lodash.mergewith@4.6.6:
     resolution: {integrity: sha512-RY/8IaVENjG19rxTZu9Nukqh0W2UrYgmBj5sdns4hWRZaV8PqR7wIKHFKzvOTjo4zVRV7sVI+yFhAJql12Kfqg==}
+    dependencies:
+      '@types/lodash': 4.14.191
+    dev: false
+
+  /@types/lodash.mergewith@4.6.7:
+    resolution: {integrity: sha512-3m+lkO5CLRRYU0fhGRp7zbsGi6+BZj0uTVSwvcKU+nSlhjA9/QRNfuSGnD2mX6hQA7ZbmcCkzk5h4ZYGOtk14A==}
     dependencies:
       '@types/lodash': 4.14.191
     dev: false
@@ -4261,6 +4279,12 @@ packages:
     resolution: {integrity: sha512-oc5m68HDO/tuK2blj7ZcdEBRx3p1PjrgHazL8GYEpvULhrtGIFbQArN6cQS2QhW8mitffaB+VYzMjDqBxxQeoA==}
     dependencies:
       tslib: 2.4.1
+    dev: false
+
+  /framesync@6.1.2:
+    resolution: {integrity: sha512-jBTqhX6KaQVDyus8muwZbBeGGP0XgujBRbQ7gM7BRdS3CadCZIHiawyzYLnafYcvZIh5j8WE7cxZKFn7dXhu9g==}
+    dependencies:
+      tslib: 2.4.0
     dev: false
 
   /fs-extra@9.1.0:

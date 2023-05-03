@@ -5,7 +5,7 @@ import { dateQuestionHandler } from './dateHandler'
 import { Dict } from '@chakra-ui/utils'
 import { similarityScore } from './levenshtein'
 
-export async function mainQuestionHandler(pattern: string, isKMP: boolean): string {
+export async function mainQuestionHandler(pattern: string, isKMP: boolean) {
 
   // Handle date question
   let [is_match, answer] = dateQuestionHandler(pattern)
@@ -30,6 +30,7 @@ export async function mainQuestionHandler(pattern: string, isKMP: boolean): stri
 
   let questionAnwerDict : Dict<string>[] = []
   await fetch("/api/getReferences").then((res:any) => res.json()).then(({ data } : { data : any }) => { questionAnwerDict = data });
+  // console.log(questionAnwerDict)
 
   for (let i = 0; i < questionAnwerDict.length; i++) {
     let question = Object.keys(questionAnwerDict[i])[0]
