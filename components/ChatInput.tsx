@@ -98,7 +98,7 @@ function ChatInput( { id_history }: Props) {
             createNewQA(inputValue, "Maaf, saya tidak mengerti pertanyaan Anda");
             setInputValue("");
         }
-        // router.reload();
+        router.reload();
     }
 
     const handleKeyDown = (event:any) => {
