@@ -1,9 +1,10 @@
 export function dateQuestion(text: string): [boolean, string] {
   let dateQuestion: RegExp = /\s*(kapan|hari\s+apa)?\s*(\d{1,2})\/(\d{1,2})\/(\d{1,5})[\s\?]*/gi;
 
+  let isDateQuestion = dateQuestion.test(text);
   let date = dateQuestion.exec(text);
 
-  if (date) {
+  if (isDateQuestion && date) {
     let dateParsed = [parseInt(date[2]), parseInt(date[3]), parseInt(date[4])];
     if (validateDate(dateParsed)) {
       return [true, gaussAlgorithm(dateParsed)];
