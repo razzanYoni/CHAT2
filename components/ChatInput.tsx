@@ -1,16 +1,60 @@
 import React from 'react'
-import { Input, HStack } from '@chakra-ui/react';
+import { Input, HStack, Box, Stack, useRadio, useRadioGroup } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
+
+function RadioCard(props: any) {
+    const { getInputProps, getRadioProps } = useRadio(props)
+  
+    const input = getInputProps()
+    const checkbox = getRadioProps()
+  
+    return (
+      <Box as='label'>
+        <input {...input} />
+        <Box
+          {...checkbox}
+          cursor='pointer'
+          borderWidth='1px'
+          borderRadius='md'
+          boxShadow='md'
+          _checked={{
+            bg: 'teal.600',
+            color: 'white',
+            borderColor: 'teal.600',
+          }}
+          _focus={{
+            boxShadow: 'outline',
+          }}
+          px={5}
+          py={3}
+        >
+          {props.children}
+        </Box>
+      </Box>
+    )
+  }
 
 type Props = {
     id_history: number;
 };
 
 function ChatInput( { id_history }: Props) {
+    // const MyContext = React.createContext(defaultValue);
     const [inputValue, setInputValue] = React.useState("");
+    const [selectedAlgorithm, setSelectedAlgorithm] = React.useState("KMP"); 
     const router = useRouter();
     const [references, setReferences] = React.useState([]);
+
+    const options = ['KMP', 'BM']
+
+    const { getRootProps, getRadioProps } = useRadioGroup({
+        name: 'Algorithm',
+        defaultValue: 'KMP',
+        onChange: setSelectedAlgorithm,
+    })
+
+  const group = getRootProps()
 
     React.useEffect(() => {
         fetch("/api/getReferences")
@@ -33,21 +77,26 @@ function ChatInput( { id_history }: Props) {
             body: JSON.stringify(newQA)
         })
             .then((res) => res.json())
-            .then(({ data }) => { console.log(data) });
+            .then(({ data }) => {  });
 
-        router.reload();
     };
 
     const compute = async () => {
+        let found = false;
+        console.log(selectedAlgorithm);
         references.forEach((reference:any) => {
             if (inputValue.toLowerCase().includes(reference.pertanyaan.toLowerCase())) {
                 createNewQA(inputValue, reference.jawaban);
                 setInputValue("");
+                found = true;
                 return;
             }
         });
-        createNewQA(inputValue, "Maaf, saya tidak mengerti pertanyaan Anda");
-        setInputValue("");
+        if (!found) {
+            createNewQA(inputValue, "Maaf, saya tidak mengerti pertanyaan Anda");
+            setInputValue("");
+        }
+        router.reload();
     }
 
     const handleKeyDown = (event:any) => {
@@ -67,10 +116,22 @@ function ChatInput( { id_history }: Props) {
     
 
     return (
-        <HStack>
-            <Input placeholder='Ask your questions here...' onChange={handleChange} onKeyDown={handleKeyDown}></Input>							
-            <PaperAirplaneIcon onClick={compute} cursor={"pointer"} height={"40"} width={"40"}/>
-        </HStack>
+        <Stack direction={{ base: "column", md: "row" }} alignItems={"center"}>
+            <HStack {...group} alignContent={{ base: "center", md: "left" }} justifyContent={{ base: "center", md: "left" }}>
+                {options.map((value) => {
+                    const radio = getRadioProps({ value })
+                    return (
+                    <RadioCard key={value} {...radio}>
+                        {value}
+                    </RadioCard>
+                    )
+                })}
+            </HStack>
+            <HStack>
+                <Input placeholder='Ask your questions here...' w={{base:"80vw", md:"45vw"}} onChange={handleChange} onKeyDown={handleKeyDown}></Input>							
+                <PaperAirplaneIcon onClick={compute} cursor={"pointer"} height={"40"} width={"40"}/>
+            </HStack>
+        </Stack>
 
     )
 }

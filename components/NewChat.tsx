@@ -56,7 +56,7 @@ function NewChat() {
             cursor={"pointer"}
             color={"gray.200"}
             transition="all 200ms ease-out"
-            w={300}
+            w={310}
         >
             <PlusIcon height={"20"} width={"20"} />
             <Text>New Chat</Text>

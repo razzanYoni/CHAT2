@@ -28,7 +28,8 @@ function SideBar() {
                 <Box maxH={"80vh"} overflowY="scroll" sx={{
 							'&::-webkit-scrollbar': {
 							width: '10px',
-							backgroundColor: `gray.800`,
+							backgroundColor: `gray.700`,
+                            overflow: 'auto'
 							},
 							'&::-webkit-scrollbar-thumb': {
 							borderRadius: '20px',

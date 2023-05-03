@@ -29,7 +29,7 @@ function Chat( { id_history }: Props) {
 	})
 
     return (
-        <Container alignItems={"center"} marginX={20}>
+        <Container alignItems={"center"} marginX={{base:"full" , md:20}}>
             {
                 QAs &&
                 QAs.map((QA: any) => (
