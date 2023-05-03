@@ -26,6 +26,7 @@ yarn-error.log*
 
 # vscode
 .vscode
+
 .pnpm-debug.log*
 
 # local env files
@@ -39,3 +40,6 @@ yarn-error.log*
 next-env.d.ts
 
 # pnpm
+
+# sw.js.map
+public/sw.js.map
