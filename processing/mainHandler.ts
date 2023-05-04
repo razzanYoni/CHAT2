@@ -53,15 +53,19 @@ export async function mainQuestionHandler(pattern: string, isKMP: boolean) {
 
   let questionAnwerDict: Dict<string>[] = []
   await fetch("/api/getReferences").then((res: any) => res.json()).then(({ data }: { data: any }) => { questionAnwerDict = data });
+  console.log(questionAnwerDict)
 
   for (let i = 0; i < questionAnwerDict.length; i++) {
-    let question = Object.keys(questionAnwerDict[i])[0]
+    let question = Object.values(questionAnwerDict[i])[0]
+    console.log("cobaaa")
+    console.log(question)
     if (question.length != pattern.length) {
       continue
     }
     if (matchAlg(question, pattern) != -1) {
       if (isDeleteQnA) {
-        deleteQnA(questionToBeDeleted)
+        // TODO : apus berdasarkan id reference
+        deleteQnA(Number(Object.keys(questionAnwerDict[i])[2]))
         return 'Question "' + questionToBeDeleted + '" has been deleted'
       } else if (isAddQnA) {
         return 'Question "' + newQuestion + '" already exists in database'
@@ -78,7 +82,7 @@ export async function mainQuestionHandler(pattern: string, isKMP: boolean) {
 
   let similarity: [number, number][] = []
   for (let i = 0; i < questionAnwerDict.length; i++) {
-    let question = Object.keys(questionAnwerDict[i])[0]
+    let question = Object.values(questionAnwerDict[i])[0]
     similarity.push([similarityScore(question, pattern), i])
   }
 
@@ -91,7 +95,7 @@ export async function mainQuestionHandler(pattern: string, isKMP: boolean) {
     answerText += "Did you mean:\n"
     for (let i = 0; i < 3 && i < similarity.length; i++) {
       answerText += "  " + (i + 1) + ". "
-      answerText += Object.keys(questionAnwerDict[similarity[i][1]])[0] + " ("
+      answerText += Object.values(questionAnwerDict[similarity[i][1]])[0] + " ("
       answerText += (similarity[i][0] * 100).toFixed(2) + "% similar)\n"
     }
     return answerText
@@ -99,10 +103,27 @@ export async function mainQuestionHandler(pattern: string, isKMP: boolean) {
 
 }
 
-function deleteQnA(question: string) {
+async function deleteQnA(id_reference: Number) {
   // TODO delete question and answer from database
+  await fetch(`/api/deleteReference?id_reference=${id_reference}`, {
+    method: "DELETE"
+});
 }
 
-function addQnA(newQuestion: string, newAnswer: string) {
+async function addQnA(newQuestion: string, newAnswer: string) {
   // TODO add question and answer to database
+  const newReference = {
+    pertanyaan: newQuestion,
+    jawaban: newAnswer
+  };
+
+  await fetch("/api/createReference", {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newReference)
+  })
+      .then((res) => res.json())
+      .then(({ data }) => { console.log(data); });
 }

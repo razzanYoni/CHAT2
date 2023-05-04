@@ -80,7 +80,7 @@ function ChatInput( { id_history }: Props) {
     }
 
     const handleKeyDown = (event:any) => {
-        if (event.key === "Enter") {
+        if (event.key === "Enter" && inputValue != "") {
           console.log("Input value:", inputValue);
             compute();
         }

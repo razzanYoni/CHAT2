@@ -11,16 +11,15 @@ export default async function handler(
     res: NextApiResponse<Data>
 ) {
     try {
-        const { pertanyaan, jawaban } = req.body;
-        await prisma.reference.create({
-            data: {
-                pertanyaan: pertanyaan,
-                jawaban: jawaban,
-            },
+        const { id_reference } = req.query;
+
+        await prisma.reference.delete({
+            where : {
+                id_reference: Number(id_reference),
+            }
         });
         res.status(200).json({ success: true });
-    }
-    catch (e) {
+    } catch (e) {
         res.status(200).json({ success: false });
     }
 }
