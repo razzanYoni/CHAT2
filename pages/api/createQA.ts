@@ -11,9 +11,10 @@ export default async function handler(
     res: NextApiResponse<Data>
 ) {
     try {
-        const { pertanyaan, jawaban } = req.body;
-        await prisma.reference.create({
+        const { id_history, pertanyaan, jawaban } = req.body;
+        await prisma.q_A.create({
             data: {
+                id_history: Number(id_history),
                 pertanyaan: pertanyaan,
                 jawaban: jawaban,
             },
