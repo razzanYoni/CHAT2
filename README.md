@@ -7,7 +7,7 @@ Membangun sebuah aplikasi Chat GPT sederhana dengan mengaplikasikan pendekatan Q
 ## Installation
 Clone the repo
 ```
-https://github.com/razzanYoni/tubes3_13521045.git
+git clone https://github.com/razzanYoni/tubes3_13521045.git
 ```
 
 ## Usage
