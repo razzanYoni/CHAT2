@@ -73,7 +73,6 @@ function ChatInput( { id_history }: Props) {
 
     const compute = async () => {
         if (inputValue !== "") {
-          console.log("di sini " + mainQuestionHandler(inputValue, selectedAlgorithm == 'KMP'))
           createNewQA(inputValue, await mainQuestionHandler(inputValue, selectedAlgorithm == 'KMP'))
           setInputValue("");
         }
