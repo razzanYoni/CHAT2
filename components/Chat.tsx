@@ -7,24 +7,24 @@ type Props = {
 
 function Chat( { id_history }: Props) {
     const [QAs, setQAs] = useState([]);
+    const bottomRef = useRef<null | HTMLDivElement>(null)
     useEffect(() => {
 		if (id_history) {
 			fetch(`/api/getQAs?id_history=${id_history}`)
 				.then((res) => res.json())
 				.then(({ data }) => {
+                    if (data.length > QAs.length) {
+                        if (bottomRef.current) {
+                            bottomRef.current?.scrollIntoView({
+                                behavior: 'smooth'
+                            })
+                        }
+                    }
+
 					setQAs(data);
 				});
-		}
-	}, [QAs, id_history]);
-
-    const bottomRef = useRef<null | HTMLDivElement>(null)
-	useEffect(() => {
-		if (bottomRef.current) {
-			bottomRef.current?.scrollIntoView({
-				behavior: 'smooth'
-			})
-		}
-	})
+            }
+        }, [id_history, QAs]);
 
     return (
         <Container alignItems={"center"} marginX={{base:"full" , md:20}}>
