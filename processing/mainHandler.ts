@@ -11,52 +11,55 @@ export async function mainQuestionHandler(pattern: string, isKMP: boolean) {
   console.log(pattern)
   // Handle date question
   let [is_match, answer] = dateQuestionHandler(pattern)
-  
+
   if (is_match) {
     return answer
   } else if (!is_match && answer !== '0') {
     return "Date is invalid: " + answer
   }
-  
+
   // Handle math question
   [is_match, answer] = mathQuestionHandler(pattern)
-  
+
   if (is_match) {
     return "The answer is " + answer
+  } else if (!is_match && answer !== '0') {
+    return "Math expression is invalid: " + answer
   }
+
   let isDeleteQnA: boolean = false;
   let questionToBeDeleted: string = "";
-  
+
   [is_match, questionToBeDeleted] = deleteQnAHandler(pattern)
-  
+
   if (is_match) {
     isDeleteQnA = true;
     pattern = questionToBeDeleted;
   }
-  
+
   let isAddQnA: boolean = false;
   let newQuestion: string = "";
   let newAnswer: string = "";
-  
+
   if (!isDeleteQnA) {
     [is_match, newQuestion, newAnswer] = addQnAHandler(pattern)
-    
+
     if (is_match) {
       isAddQnA = true;
       pattern = newQuestion;
     }
   }
-  
+
   let matchAlg = BM
   if (isKMP) {
     matchAlg = KMP
   }
   console.log("debug " + 2)
   console.log(pattern)
-  
+
   let questionAnwerDict: Dict<string>[] = []
   await fetch("/api/getReferences").then((res: any) => res.json()).then(({ data }: { data: any }) => { questionAnwerDict = data });
-  
+
   console.log("debug " + 3)
   console.log(pattern)
 
@@ -78,22 +81,22 @@ export async function mainQuestionHandler(pattern: string, isKMP: boolean) {
   }
   console.log("debug " + 4)
   console.log(pattern)
-  
+
   if (isDeleteQnA) {
     return 'Question "' + questionToBeDeleted + '" not found in database'
   } else if (isAddQnA) {
     addQnA(newQuestion, newAnswer)
     return 'Question "' + newQuestion + '" has been added to database'
   }
-  
+
   let similarity: [number, number][] = []
   for (let i = 0; i < questionAnwerDict.length; i++) {
     let question = Object.values(questionAnwerDict[i])[0]
     similarity.push([similarityScore(question, pattern), i])
   }
-  
+
   similarity.sort((a, b) => b[0] - a[0])
-  
+
   console.log("debug " + 5)
   console.log(pattern)
   if (similarity[0][0] >= 0.9) {
@@ -117,7 +120,7 @@ async function deleteQnA(id_reference: Number) {
   // TODO delete question and answer from database
   await fetch(`/api/deleteReference?id_reference=${id_reference}`, {
     method: "DELETE"
-});
+  });
 }
 
 async function addQnA(newQuestion: string, newAnswer: string) {
@@ -128,12 +131,12 @@ async function addQnA(newQuestion: string, newAnswer: string) {
   };
 
   await fetch("/api/createReference", {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json"
-      },
-      body: JSON.stringify(newReference)
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(newReference)
   })
-      .then((res) => res.json())
-      .then(({ data }) => { console.log(data); });
+    .then((res) => res.json())
+    .then(({ data }) => { console.log(data); });
 }
