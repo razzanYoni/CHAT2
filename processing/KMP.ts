@@ -1,8 +1,11 @@
 
 /**
- * 
  * @param pattern string yang akan dicari border functionnya
  * @returns border function dari pattern
+ * 
+ * I.S. pattern merupakan string yang tidak kosong
+ * 
+ * F.S. mengembalikan border function dari pattern
  */
 function computeBorder(pattern: string) {
   const border = new Array(pattern.length).fill(0);
@@ -34,10 +37,13 @@ function computeBorder(pattern: string) {
   return border;
 }
 /**
- * 
  * @param text string yang akan dicari patternnya
  * @param pattern string yang akan dicari di text
  * @returns mengembalikan indeks pertama dari pattern di text, -1 jika tidak ditemukan
+ * 
+ * I.S. text dan pattern merupakan string yang tidak kosong
+ * 
+ * F.S. mengembalikan indeks pertama dari pattern di text, -1 jika tidak ditemukan
  */
 export function KMP(text: string, pattern: string) {
   const border = computeBorder(pattern);
