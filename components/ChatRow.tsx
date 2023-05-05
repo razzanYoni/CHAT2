@@ -54,7 +54,7 @@ function ChatRow( { id_history, judul }: Props) {
 
     return (
         <Card m={1.5} bg={"transparent"} borderColor={"transparent"}>
-            <HStack _hover={ { bg: "gray.500", opacity: 0.7 } } color={currentHistory && Number(currentHistory) !== id_history ? "gray.200" : "teal.600"}  transition="all 200ms ease-out" border={"1px"} rounded={"lg"} display={"flex"} w="20vw" h={"6vh"} px={"1"} bgColor={currentHistory && Number(currentHistory) !== id_history ? "transparent" : "teal.600"}>
+            <HStack _hover={ { bg: "gray.500", opacity: 0.7 } } color={currentHistory && Number(currentHistory) === id_history ? "teal.600" : "gray.200"}  transition="all 200ms ease-out" border={"1px"} rounded={"lg"} display={"flex"} w="20vw" h={"6vh"} px={"1"} bgColor={currentHistory && Number(currentHistory) === id_history ? "teal.600" : "transparent"}>
                 <Link href={`/history/${id_history}`} className={`chatRow justify-center`} key={id_history}>
                     <HStack cursor={"pointer"} alignItems="center" justifySelf="start" fontSize={"sm"} display={"flex"} justifyContent="start" spacing={2} minW="245" maxW="200" h="6vh">
                         <ChatBubbleLeftIcon height={"20"} width={"20"} color="white"/>
