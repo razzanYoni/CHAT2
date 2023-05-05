@@ -6,9 +6,13 @@ import { Dict } from '@chakra-ui/utils'
 import { similarityScore } from './levenshtein'
 import { addQnAHandler, deleteQnAHandler } from './editQnAHandler'
 
+/**
+ * 
+ * @param pattern string masukan dari user
+ * @param isKMP boolean apakah algoritma yang digunakan adalah KMP atau BM
+ * @returns string jawaban dari pertanyaan user
+ */
 export async function mainQuestionHandler(pattern: string, isKMP: boolean) {
-  console.log("debug " + 1)
-  console.log(pattern)
   // Handle date question
   let [is_match, answer] = dateQuestionHandler(pattern)
 
@@ -30,6 +34,7 @@ export async function mainQuestionHandler(pattern: string, isKMP: boolean) {
   let isDeleteQnA: boolean = false;
   let questionToBeDeleted: string = "";
 
+  // Handle apakah user ingin menghapus pertanyaan
   [is_match, questionToBeDeleted] = deleteQnAHandler(pattern)
 
   if (is_match) {
@@ -54,14 +59,9 @@ export async function mainQuestionHandler(pattern: string, isKMP: boolean) {
   if (isKMP) {
     matchAlg = KMP
   }
-  console.log("debug " + 2)
-  console.log(pattern)
 
   let questionAnwerDict: Dict<string>[] = []
   await fetch("/api/getReferences").then((res: any) => res.json()).then(({ data }: { data: any }) => { questionAnwerDict = data });
-
-  console.log("debug " + 3)
-  console.log(pattern)
 
   for (let i = 0; i < questionAnwerDict.length; i++) {
     let question = Object.values(questionAnwerDict[i])[0]
@@ -70,7 +70,6 @@ export async function mainQuestionHandler(pattern: string, isKMP: boolean) {
     }
     if (matchAlg(question, pattern) != -1) {
       if (isDeleteQnA) {
-        // TODO : apus berdasarkan id reference
         deleteQnA(Number(Object.values(questionAnwerDict[i])[2]))
         return 'Question "' + questionToBeDeleted + '" has been deleted'
       } else if (isAddQnA) {
@@ -79,8 +78,6 @@ export async function mainQuestionHandler(pattern: string, isKMP: boolean) {
       return Object.values(questionAnwerDict[i])[1]
     }
   }
-  console.log("debug " + 4)
-  console.log(pattern)
 
   if (isDeleteQnA) {
     return 'Question "' + questionToBeDeleted + '" not found in database'
@@ -97,8 +94,6 @@ export async function mainQuestionHandler(pattern: string, isKMP: boolean) {
 
   similarity.sort((a, b) => b[0] - a[0])
 
-  console.log("debug " + 5)
-  console.log(pattern)
   if (similarity[0][0] >= 0.9) {
     return Object.values(questionAnwerDict[similarity[0][1]])[1]
   } else {
@@ -109,22 +104,17 @@ export async function mainQuestionHandler(pattern: string, isKMP: boolean) {
       answerText += Object.values(questionAnwerDict[similarity[i][1]])[0] + " ("
       answerText += (similarity[i][0] * 100).toFixed(2) + "% similar)\n"
     }
-    console.log("debug")
-    console.log(answerText)
     return answerText
   }
-
 }
 
 async function deleteQnA(id_reference: Number) {
-  // TODO delete question and answer from database
   await fetch(`/api/deleteReference?id_reference=${id_reference}`, {
     method: "DELETE"
   });
 }
 
 async function addQnA(newQuestion: string, newAnswer: string) {
-  // TODO add question and answer to database
   const newReference = {
     pertanyaan: newQuestion,
     jawaban: newAnswer
