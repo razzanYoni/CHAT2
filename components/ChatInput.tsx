@@ -1,6 +1,5 @@
 import React from 'react'
 import { Input, HStack, Box, Stack, useRadio, useRadioGroup } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
 import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
 import { mainQuestionHandler } from 'processing/mainHandler';
 
@@ -43,7 +42,6 @@ type Props = {
 function ChatInput( { id_history }: Props) {
     const [inputValue, setInputValue] = React.useState("");
     const [selectedAlgorithm, setSelectedAlgorithm] = React.useState("KMP"); 
-    const router = useRouter();
 
     const options = ['KMP', 'BM']
 
@@ -70,13 +68,15 @@ function ChatInput( { id_history }: Props) {
             body: JSON.stringify(newQA)
         })
             .then((res) => res.json())
-            .then(({ data }) => { console.log(data); });
 
     };
 
     const compute = async () => {
-        createNewQA(inputValue, await mainQuestionHandler(inputValue, selectedAlgorithm == 'KMP'))
-        router.reload();
+        if (inputValue !== "") {
+          console.log("di sini " + mainQuestionHandler(inputValue, selectedAlgorithm == 'KMP'))
+          createNewQA(inputValue, await mainQuestionHandler(inputValue, selectedAlgorithm == 'KMP'))
+          setInputValue("");
+        }
     }
 
     const handleKeyDown = (event:any) => {
@@ -87,7 +87,7 @@ function ChatInput( { id_history }: Props) {
       };
     
     const handleChange = (event:any) => {
-    setInputValue(event.target.value);
+      setInputValue(event.target.value);
     };
     
 
@@ -104,7 +104,7 @@ function ChatInput( { id_history }: Props) {
                 })}
             </HStack>
             <HStack>
-                <Input placeholder='Ask your questions here...' w={{base:"80vw", md:"45vw"}} onChange={handleChange} onKeyDown={handleKeyDown}></Input>							
+                <Input placeholder='Ask your questions here...' w={{base:"80vw", md:"45vw"}} onChange={handleChange} onKeyDown={handleKeyDown} value={inputValue} />							
                 <PaperAirplaneIcon onClick={compute} cursor={"pointer"} height={"40"} width={"40"}/>
             </HStack>
         </Stack>

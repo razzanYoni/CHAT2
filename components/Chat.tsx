@@ -15,7 +15,7 @@ function Chat( { id_history }: Props) {
 					setQAs(data);
 				});
 		}
-	}, [id_history]);
+	}, [QAs, id_history]);
 
     const bottomRef = useRef<null | HTMLDivElement>(null)
 	useEffect(() => {

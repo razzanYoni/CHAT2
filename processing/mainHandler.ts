@@ -7,7 +7,7 @@ import { similarityScore } from './levenshtein'
 import { addQnAHandler, deleteQnAHandler } from './editQnAHandler'
 
 export async function mainQuestionHandler(pattern: string, isKMP: boolean) {
-
+  console.log(pattern)
   // Handle date question
   let [is_match, answer] = dateQuestionHandler(pattern)
 
@@ -50,6 +50,7 @@ export async function mainQuestionHandler(pattern: string, isKMP: boolean) {
   if (isKMP) {
     matchAlg = KMP
   }
+  console.log(pattern+"3")
 
   let questionAnwerDict: Dict<string>[] = []
   await fetch("/api/getReferences").then((res: any) => res.json()).then(({ data }: { data: any }) => { questionAnwerDict = data });
@@ -57,15 +58,13 @@ export async function mainQuestionHandler(pattern: string, isKMP: boolean) {
 
   for (let i = 0; i < questionAnwerDict.length; i++) {
     let question = Object.values(questionAnwerDict[i])[0]
-    console.log("cobaaa")
-    console.log(question)
     if (question.length != pattern.length) {
       continue
     }
     if (matchAlg(question, pattern) != -1) {
       if (isDeleteQnA) {
         // TODO : apus berdasarkan id reference
-        deleteQnA(Number(Object.keys(questionAnwerDict[i])[2]))
+        deleteQnA(Number(Object.values(questionAnwerDict[i])[2]))
         return 'Question "' + questionToBeDeleted + '" has been deleted'
       } else if (isAddQnA) {
         return 'Question "' + newQuestion + '" already exists in database'
@@ -88,8 +87,10 @@ export async function mainQuestionHandler(pattern: string, isKMP: boolean) {
 
   similarity.sort((a, b) => b[0] - a[0])
 
+  console.log(pattern+" 2")
   if (similarity[0][0] >= 0.9) {
-    return Object.values(questionAnwerDict[similarity[0][1]])[0]
+    console.log(Object.values(questionAnwerDict[similarity[0][1]])[1])
+    return Object.values(questionAnwerDict[similarity[0][1]])[1]
   } else {
     let answerText = "Question not found in database.\n"
     answerText += "Did you mean:\n"
@@ -98,6 +99,8 @@ export async function mainQuestionHandler(pattern: string, isKMP: boolean) {
       answerText += Object.values(questionAnwerDict[similarity[i][1]])[0] + " ("
       answerText += (similarity[i][0] * 100).toFixed(2) + "% similar)\n"
     }
+    console.log("debug")
+    console.log(answerText)
     return answerText
   }
 

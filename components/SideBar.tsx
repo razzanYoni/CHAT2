@@ -13,7 +13,7 @@ function SideBar() {
         fetch("/api/getHistories")
             .then((res) => res.json())
             .then(({ data }) => setHistories(data));
-    }, []);
+    }, [histories]);
 
     return (
     <Flex 

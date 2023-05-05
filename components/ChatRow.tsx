@@ -34,7 +34,9 @@ function ChatRow( { id_history, judul }: Props) {
         await fetch(`/api/deleteHistory?id_history=${id_history}`, {
             method: "DELETE"
         });
-        router.reload();
+        if (router.pathname === "/history/[id_history]" && router.query.id_history === id_history.toString()) {
+            router.push("/");
+        }
     }
 
     const editHistory = async () => {
