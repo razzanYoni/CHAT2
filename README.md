@@ -11,6 +11,7 @@ git clone https://github.com/razzanYoni/tubes3_13521045.git
 ```
 
 ## Usage
+Local <br/>
 :warning: **Get database credentials from author** <br/>
 Install dependencies
 ```
@@ -20,6 +21,8 @@ Run program
 ```
 npm run dev
 ```
+Deployment <br/>
+[https://tubes3-13521045.vercel.app/](https://tubes3-13521045.vercel.app/)
 
 ## Author
 - 13521045 [Fakhri Muhammad Mahendra](https://github.com/Fakhrimm)
