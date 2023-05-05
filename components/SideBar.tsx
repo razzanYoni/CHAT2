@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { Flex, Box, Text, Image, VStack } from "@chakra-ui/react";
 import ChatRow from "./ChatRow";
 
-// TODO : edit, remove judul
-// TODO : rapihin tampilan
 
 function SideBar() {
     const [histories, setHistories] = useState([]);
