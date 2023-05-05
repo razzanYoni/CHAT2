@@ -55,7 +55,7 @@ function Chat( { id_history }: Props) {
                                         borderRadius={"full"}
                                         alt="Your Pic"
                                     />
-                                    <Text maxW={"52vw"} border="2px solid" borderRadius="5px" borderColor={"gray.200"} align={"left"} p={2} ml={5} my={5}>{QA.jawaban}</Text>
+                                    <Text maxW={"52vw"} border="2px solid" borderRadius="5px" borderColor={"gray.200"} align={"left"} p={2} ml={5} my={5} whiteSpace="pre-wrap">{QA.jawaban} </Text>
                                 </Center>
                             </Flex>
                         </Box>
