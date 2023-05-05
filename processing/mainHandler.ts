@@ -7,54 +7,58 @@ import { similarityScore } from './levenshtein'
 import { addQnAHandler, deleteQnAHandler } from './editQnAHandler'
 
 export async function mainQuestionHandler(pattern: string, isKMP: boolean) {
+  console.log("debug " + 1)
   console.log(pattern)
   // Handle date question
   let [is_match, answer] = dateQuestionHandler(pattern)
-
+  
   if (is_match) {
     return answer
   } else if (!is_match && answer !== '0') {
     return "Date is invalid: " + answer
   }
-
+  
   // Handle math question
   [is_match, answer] = mathQuestionHandler(pattern)
-
+  
   if (is_match) {
     return "The answer is " + answer
   }
   let isDeleteQnA: boolean = false;
   let questionToBeDeleted: string = "";
-
+  
   [is_match, questionToBeDeleted] = deleteQnAHandler(pattern)
-
+  
   if (is_match) {
     isDeleteQnA = true;
     pattern = questionToBeDeleted;
   }
-
+  
   let isAddQnA: boolean = false;
   let newQuestion: string = "";
   let newAnswer: string = "";
-
+  
   if (!isDeleteQnA) {
     [is_match, newQuestion, newAnswer] = addQnAHandler(pattern)
-
+    
     if (is_match) {
       isAddQnA = true;
       pattern = newQuestion;
     }
   }
-
+  
   let matchAlg = BM
   if (isKMP) {
     matchAlg = KMP
   }
-  console.log(pattern+"3")
-
+  console.log("debug " + 2)
+  console.log(pattern)
+  
   let questionAnwerDict: Dict<string>[] = []
   await fetch("/api/getReferences").then((res: any) => res.json()).then(({ data }: { data: any }) => { questionAnwerDict = data });
-  console.log(questionAnwerDict)
+  
+  console.log("debug " + 3)
+  console.log(pattern)
 
   for (let i = 0; i < questionAnwerDict.length; i++) {
     let question = Object.values(questionAnwerDict[i])[0]
@@ -69,27 +73,30 @@ export async function mainQuestionHandler(pattern: string, isKMP: boolean) {
       } else if (isAddQnA) {
         return 'Question "' + newQuestion + '" already exists in database'
       }
-      return Object.values(questionAnwerDict[i])[0]
+      return Object.values(questionAnwerDict[i])[1]
     }
   }
+  console.log("debug " + 4)
+  console.log(pattern)
+  
   if (isDeleteQnA) {
     return 'Question "' + questionToBeDeleted + '" not found in database'
   } else if (isAddQnA) {
     addQnA(newQuestion, newAnswer)
     return 'Question "' + newQuestion + '" has been added to database'
   }
-
+  
   let similarity: [number, number][] = []
   for (let i = 0; i < questionAnwerDict.length; i++) {
     let question = Object.values(questionAnwerDict[i])[0]
     similarity.push([similarityScore(question, pattern), i])
   }
-
+  
   similarity.sort((a, b) => b[0] - a[0])
-
-  console.log(pattern+" 2")
+  
+  console.log("debug " + 5)
+  console.log(pattern)
   if (similarity[0][0] >= 0.9) {
-    console.log(Object.values(questionAnwerDict[similarity[0][1]])[1])
     return Object.values(questionAnwerDict[similarity[0][1]])[1]
   } else {
     let answerText = "Question not found in database.\n"
