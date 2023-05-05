@@ -43,6 +43,7 @@ export function BM(text: string, pattern: string) {
       // if not match
       const last = lastOccurrence.get(text[i])
       i += pattern.length - Math.min(j, 1 + (last !== undefined ? last : -1))
+      // Dicar min(j, last) agar tidak out of bound ketika menggeser
       j = pattern.length - 1  // reset j
     }
   }
